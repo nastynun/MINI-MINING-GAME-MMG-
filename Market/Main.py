@@ -166,7 +166,7 @@ class Miner_Holder:
         print("\n" + "─" * 35 + "\n")
 
         print(f"{'Miner:':<22} {self.Miner}")
-        print(f"{'Currently:':<22} {self.Mining}")
+        print(f"{'Currently Mining:':<22} {self.Mining}")
         print(f"{'Booster:':<22} {self.Boost*100:.0f}%")
         print(f"{'Boost Model:':<22} {self.BoostName}")
         print(f"{'Mining Rate:':<22} ${self.HTZ:,.0f}")
@@ -303,8 +303,6 @@ def ShowMarket():
     print("="*40)
     pprint(Miner_Market)
 
-
-
 def Main():
     print("\033[92m" + "="*40 + "\n   MINI MINING GAME (MMG)\n" + "="*40 + "\033[0m")
     user_name = input("Enter Name: ")
@@ -314,7 +312,7 @@ def Main():
     while True:
         print("\n" + "_"*40)
         print(f"💰 Balance: ${player.Balance:,.2f} | ⛏️ Mined: ${player.Mined:,.2f} | ⚙️ Miner: {player.Miner}")
-        print("Commands: [1] Stats [2] Market [3] Roll Miner [4] Roll Boost [5] Mine/Stop [6] Claim [7] Inventory [8] Use [9] Exit")
+        print("Commands: [1] Stats [2] Market [3] Buy Miner [4] Buy Boost [5] Roll Miner [6] Roll Boost [7] Mine/Stop [8] Claim [9] Inventory [00] Use [0] Exit")
         
         choice = input("Select an option: ")
 
@@ -323,26 +321,32 @@ def Main():
         elif choice == '2':
             ShowMarket()
         elif choice == '3':
-            player.Roll_Miner()
+            item = input("Enter item name exactly: ")
+            player.BuyItem(item,Miner_Market)
         elif choice == '4':
-            player.Roll_Boost()
+            item = input("Enter item name exactly: ")
+            player.BuyItem(item,profit_Bost)
         elif choice == '5':
-            player.Mine()
+            player.Roll_Miner()
         elif choice == '6':
-            player.Claim()
+            player.Roll_Boost()
         elif choice == '7':
-            player.ShowInventory()
+            player.Mine()
         elif choice == '8':
+            player.Claim()
+        elif choice == '9':
+            player.ShowInventory()
+        elif choice == '00':
             cat = input("Use (miner/boost)?: ").lower()
             item = input("Enter item name exactly: ")
             if "miner" in cat: player.Use_Miner(item)
             else: player.Use_Boost(item)
-        elif choice == '9':
-            style("Thanks for playing!", color=200)
+        elif choice == '0':
+            style("Thanks for playing!", color=200,bold=True,underline=True)
             player.Mining = False
             break
         else:
-            style("Invalid Choice!", color=196)
+            style("Invalid Choice!", color=196,bold=True,underline=True)
 
 if __name__ == "__main__":
     Main()
